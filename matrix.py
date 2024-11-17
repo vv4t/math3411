@@ -35,13 +35,15 @@ class Matrix:
     return B
   
   def transpose(self):
-    B = self.copy()
+    B = []
     
     for i in range(self.width()):
+      v = []
       for j in range(self.height()):
-        B.m[i][j] = self.m[j][i]
+        v.append(self.m[j][i])
+      B.append(v)
     
-    return B
+    return Matrix(B, self.field)
   
   def row_echelon_form(self):
     H = self.copy()
@@ -60,6 +62,12 @@ class Matrix:
         break
     return H
 
+  def lead(self, row):
+    for lead in range(self.width()):
+      if self.m[row][lead] != 0:
+        return lead
+    return 0
+
   def reduced(self):
     H = self.copy()
     for i in range(1, self.height()):
@@ -73,16 +81,21 @@ class Matrix:
         break
     return H
   
+  def __rmul__(B, A):
+    return B * A
+  
   def __mul__(A, B):
     if isinstance(B, Matrix):
-      C = A.copy()
+      R = []
       for i in range(A.height()):
+        v = []
         for j in range(B.width()):
           S = 0
           for k in range(A.width()):
             S = S + A.m[i][k] * B.m[k][j]
-          C.m[i][j] = S
-      return C
+          v.append(S)
+        R.append(v)
+      return Matrix(R, A.field)
     else:
       C = A.copy()
       for i in range(A.height()):

@@ -22,6 +22,12 @@ class GF_P:
     c.normalize()
     return c
   
+  def __radd__(B, A):
+    return B + A
+  
+  def __rmul__(B, A):
+    return B * A
+  
   def __add__(a, b):
     return GF_P(a.P, int(a) + int(b))
   

@@ -32,13 +32,13 @@ def q1_decode(p, m, r):
 def q2(M, p):
   print("--------- q2 -----------")
   M = [ [ M[j][i] for j in range(len(M[0])) ] for i in range(len(M)) ]
-  H_S = [ H(S) for S in M ]
+  H_S = [ entropy(S) for S in M ]
   H_M = sum([ p[i] * H_S[i] for i in range(len(p)) ])
   print(round(H_M, 2))
 
 def q3_avg_len(p, r):
   print("--------- q3-avg-len -----------")
-  print(round(H(p, r), 3))
+  print(round(entropy(p, r), 3))
 
 def q3_get_code(p, r=2):
   print("--------- q3-get-code -----------")
@@ -60,12 +60,12 @@ def q4_symbol(P_a1, P_b1_a1, P_b2_a2):
   print("P(a2)", "=", round(P_a2, 2))
   print("P(b1)", "=", round(P_b1, 2))
   print("P(b2)", "=", round(P_b2, 2))
-  print("H(B)", "=", round(H([P_b1, P_b2]), 2))
+  print("entropy(B)", "=", round(entropy([P_b1, P_b2]), 2))
 
 def q4_joint_entropy(H_A, H_B, I_AB):
   print("--------- q4-joint-entropy -----------")
   H_AB = H_A + H_B - I_AB
-  print(f"H(A,B) = {round(H_AB, 2)}")
+  print(f"entropy(A,B) = {round(H_AB, 2)}")
 
 def q4_mutual_information(H_A, H_B, H_AB):
   print("--------- q4-mutual-information -----------")
@@ -80,8 +80,8 @@ def q4_output_entropy(P_a1, P_b1_a1, P_b2_a2):
   P_b1_a2 = 1.0 - P_b2_a2
   P_b2_a1 = 1.0 - P_b1_a1
   
-  P_B_a1 = H([ P_b1_a1, P_b2_a1 ])
-  P_B_a2 = H([ P_b1_a2, P_b2_a2 ])
+  P_B_a1 = entropy([ P_b1_a1, P_b2_a1 ])
+  P_B_a2 = entropy([ P_b1_a2, P_b2_a2 ])
   
   P_B_A = P_a1 * P_B_a1 + P_a2 * P_B_a2
   
@@ -97,7 +97,7 @@ def q4_channel_capacity(H_BA_coeff, H_B_coeff):
   
   H = lambda x : -x*log_2(x) - (1-x)*log_2(1-x) 
   H_BA = lambda p : a*p + b
-  H_B = lambda p : H(c*p + d)
+  H_B = lambda p : entropy(c*p + d)
   
   p = (1/(2**(a/c) + 1) - d) / c
   C_AB = H_B(p) - H_BA(p)
