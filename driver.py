@@ -1,12 +1,6 @@
 from math3411 import *
 
-H = Matrix([
-  [2,0,0,2,0,1,1],
-  [0,1,0,0,1,0,1],
-  [0,0,2,1,1,1,0]
-], field=GF(3))
+C, E, phase, placed_at = huff([25, 10, 10, 4])
 
-codeword = linear_encode(H, [1,2,2,1])
-
-print(find_check_and_info_bits(H))
-print(codeword)
+print([ len(c) for c in C ])
+print(Fraction(25,49)*1 + Fraction(10,49)*2 + Fraction(10,49)*3 + Fraction(4,49)*3)

@@ -52,3 +52,88 @@ def comma_code(i, n):
     return (i - 1) * "1"
   else:
     return (i - 1) * "1" + "0"
+    
+def huff(p, radix=2):
+  
+  pad = 0
+  
+  if radix > 2:
+    while len(p) % (radix - 1) != 1:
+      p += [0]
+      pad += 1
+  p = sorted(p, reverse=True)
+  
+  # sum lowest symbols and get index of highest symbol its greater than
+  x = p.copy()
+  y = p[:-radix].copy() # symbols without lowest 'radix' amount
+  s = sum(p[-radix:])
+  highest = ([ i for i in range(len(y)) if y[i] <= s ] or [len(y)])[0]
+  placed_at = []
+  
+  E = []
+  phase = [x]
+  
+  while len(x) != radix:
+    sE = []
+    for i in range(highest):
+      # map higher symbols to themselves
+      sE.append(i)
+    for i in range(highest, len(y)):
+      # map lower symbols to one lower than before
+      sE.append(i + 1)
+    for i in range(len(y), len(y) + radix):
+      # map the lowest symbols to new merged symbol
+      sE.append(highest)
+    E.append(sE)
+    placed_at.append(highest)
+    phase.append(y)
+    
+    # insert new symbol at highest position
+    y.insert(highest, s)
+    x = y.copy()
+    y = x[:-radix].copy()
+    s = sum(x[-radix:])
+    
+    if len(x) == radix:
+      # point the rest of symbols to single symbol
+      E.append([0] * radix)
+      placed_at.append(0)
+      phase.append([s])
+    else:
+      highest = ([ i for i in range(len(y)) if y[i] <= s ] or [len(y)])[0]
+  
+  C = []
+  
+  for i in range(len(p)):
+    pos = i
+    codeword = []
+    for layer in E:
+      if pos >= len(layer) - radix:
+        codeword.append(pos - (len(layer) - radix))
+      pos = layer[pos]
+    C.append(list(reversed(codeword)))
+  
+  return (C, E, phase, placed_at)
+  
+def lz78_decode(m):
+  m = [ (int(c[0]), c[1]) for c in m.split(",") ]
+  d = [""]
+  
+  for c in m:
+    a, b = c
+    d.append(d[a] + b)
+  
+  return d, "".join(d)
+
+def lz78_encode(m):
+  d = [ "" ]
+  l = 0
+  c = []
+  while len(m) > 0:
+    idx = [ i for i in range(len(d) - 1, -1, -1) if m.startswith(d[i]) ][0]
+    new = d[idx] + m[len(d[idx])]
+    c.append((idx, new))
+    d.append(new)
+    m = m[len(d[idx])+1:]
+  
+  return d, c
