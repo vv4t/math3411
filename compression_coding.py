@@ -1,9 +1,19 @@
 from util import *
 
 def kraft_mcmillan(r, l):
+  """
+  r - radix
+  l - length array e.g. [1,1,2,3]
+  """
   return sum([1.0 / pow(r, l_i) for l_i in l])
 
 def num_to_code(n, r):
+  """
+  converts "magnitude" into digits array of radix r
+  n - magnitude
+  r - radix
+  e.g. num_to_code(5, 2) -> [1,0,1]
+  """
   if n == 0:
     return [0]
   return [ (n // r**i) % r for i in range(floor(log_r(n, r)+1)) ]
@@ -13,6 +23,13 @@ def padded_num_to_code(n, r, N):
   return c + [0] * (N - len(c))
 
 def standard_code(l, r=2):
+  """
+  generates standard codes array
+  l - length array e.g. [1,1,2,3]
+  r - radix
+  e.g. standard_code([1,1,2,3]) -> [0,1,00,010]
+  """
+  
   last = 0
   l_j = 0
   
@@ -37,6 +54,12 @@ def standard_code(l, r=2):
   return s
 
 def instant_decode(m, C):
+  """
+  converts an encoded message into array of symbol indexes given a code set
+  m - message str e.g. 010100
+  C - codeword set e.g. [1,01,00]
+  e.g. instant_decode("010100", [1,01,00]) -> [1,1,2] which is s2s2s3
+  """
   s = []
   
   while m:
@@ -48,12 +71,20 @@ def instant_decode(m, C):
   return s
 
 def comma_code(i, n):
+  """
+  generate the i'th index of comma code 
+  i - which codeword to generate for s_i
+  n - max length, the one which is only 1s
+  """
   if i == n + 1:
     return (i - 1) * "1"
   else:
     return (i - 1) * "1" + "0"
     
 def huff(p, radix=2):
+  """
+  generates a huffman c
+  """
   
   pad = 0
   
@@ -116,9 +147,16 @@ def huff(p, radix=2):
   for x, y in zip([-1] + placed_at, phase + [sum(p)]):
     print("".join([ (f"[{b}]" if a == x else str(b)).ljust(8) for a,b in enumerate(y) ]))
   
-  print("codeword:", C)
+  C = [ "".join(c) for c in C ]
+  
+  print("C = {", C, "}")
+  
+  return C
   
 def lz78_decode(m):
+  """
+  returns dictionary and decoded message
+  """
   m = [ (int(c[0]), c[1]) for c in m.split(",") ]
   d = [""]
   
@@ -129,6 +167,9 @@ def lz78_decode(m):
   return d, "".join(d)
 
 def lz78_encode(m):
+  """
+  returns dictionary and tuple array
+  """
   d = [ "" ]
   l = 0
   c = []
@@ -142,6 +183,10 @@ def lz78_encode(m):
   return d, c
 
 def arithmetic_decode(T, m):
+  """
+  T - interval range e.g. [0.1, 0.2, 0.3, 1.0], where s1 -> [0.1,0.2), s2 -> [0.2, 0.3) etc. ends at 1
+  m - message to decode
+  """
   s = []
   
   u = 0.0
@@ -167,6 +212,10 @@ def arithmetic_decode(T, m):
   print("".join([ "s"+str(s_i+1) for s_i in s if s_i != len(T) - 1]) + "*")
 
 def arithmetic_encode(P, d, m):
+  """
+  P - probability array - [ 0.1, 0.1, 0.8 ] so P(s1) = 0.1, P(s2) = 0.2, P(s3) = 0.8
+  d - alphabet mapping for message so d='ab*' means m="bba*" becomes s2s2s1s3
+  """
   D = {}
   t = 0.0
   for a, b in zip(d, P):
