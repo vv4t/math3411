@@ -1,9 +1,9 @@
 from util import *
 
-def kraft_mcmillan(r, l):
+def kraft_mcmillan(l, r):
   """
-  r - radix
   l - length array e.g. [1,1,2,3]
+  r - radix
   """
   return sum([1.0 / pow(r, l_i) for l_i in l])
 
@@ -53,6 +53,16 @@ def standard_code(l, r=2):
   
   return s
 
+def symbol_encode(m, s):
+  """
+  encodes a message with a set of codewords
+  *** STARTS AT INDEX 1
+  m - message as array of ints e.g. [1,2,3]
+  s - symbol array e.g. ["00", "01", "11"]
+  returns e.g. "000111"
+  """
+  return "".join(s[x - 1] for x in m)
+
 def instant_decode(m, C):
   """
   converts an encoded message into array of symbol indexes given a code set
@@ -70,16 +80,18 @@ def instant_decode(m, C):
   
   return s
 
-def comma_code(i, n):
+def comma_code(n):
   """
-  generate the i'th index of comma code 
-  i - which codeword to generate for s_i
-  n - max length, the one which is only 1s
+  generate a comma code of length n
   """
-  if i == n + 1:
-    return (i - 1) * "1"
-  else:
-    return (i - 1) * "1" + "0"
+  c = []
+  for i in range(1,n+2):
+    if i == n + 1:
+      c.append((i - 1) * "1")
+    else:
+      c.append((i - 1) * "1" + "0")
+  return c
+    
     
 def huff(p, radix=2):
   """

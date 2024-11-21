@@ -45,6 +45,9 @@ class Matrix:
     
     return Matrix(B, self.field)
   
+  def rref(self):
+    return self.row_echelon_form().reduced()
+  
   def row_echelon_form(self):
     H = self.copy()
     for i in range(self.height()):

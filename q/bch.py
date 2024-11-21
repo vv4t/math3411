@@ -1,10 +1,10 @@
 from lib import *
 
-m1 = Polynomial([1,0,0,1,1], Z(2))
+m1 = Polynomial([1,1,0,0,1], Z(2))
 m3 = Polynomial([1,1,1,1,1], Z(2))
 m = m1 * m3
 
-message = "1001011"
+message = "0111010"
 message = [ int(s) for s in message ]
 
 C_I = Polynomial(list(reversed(message)) + [0] * 8, Z(2))
@@ -20,7 +20,7 @@ for i in range(16):
   print(i, "->", a ** i % m1)
 print("----------------------------")
 
-d = "100101000011111"
+d = "011000111011111"
 d = [ int(s) for s in d ]
 
 D_x = Polynomial(list(reversed(d)), Z(2))
@@ -36,7 +36,9 @@ print(D_a3)
 
 if D_a3 == (D_a**3) % m1:
   print("single error")
-  d[13] = (d[13] + 1) % 2
+  pos = 8
+  d[pos] += 1
+  d[pos] %= 2
   y = "".join(map(str,d))
   print(y[:8], y[8:])
   exit()
