@@ -144,8 +144,12 @@ def huff(p, radix=2):
       pos = layer[pos]
     C.append(list(reversed(codeword)))
   
-  for x, y in zip([-1] + placed_at, phase + [sum(p)]):
-    print("".join([ (f"[{b}]" if a == x else str(b)).ljust(8) for a,b in enumerate(y) ]))
+  for x, y, z in zip([-1] + placed_at, phase + [sum(p)], E + [[-1]]):
+    info = [
+      ((f"[{b}]" if a == x else str(b) + "  ") + ("->" + str(c) if c >= 0 else "")).ljust(12)
+      for a, b, c  in zip(range(len(y)), y, z)
+    ]
+    print("".join(info))
   
   C = [ "".join(map(str,c)) for c in C ]
   

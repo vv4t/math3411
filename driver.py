@@ -1,4 +1,6 @@
 from math3411 import *
 
-huff([3,3,1,1,1,1,1], radix=4)
+p = [3,3,1,1,1,1,1]
+p = [ Fraction(n,11) for n in p ]
+c = huff(p, radix=4)
 
