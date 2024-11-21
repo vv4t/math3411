@@ -97,7 +97,7 @@ def q4_channel_capacity(H_BA_coeff, H_B_coeff):
   
   H = lambda x : -x*log_2(x) - (1-x)*log_2(1-x) 
   H_BA = lambda p : a*p + b
-  H_B = lambda p : entropy(c*p + d)
+  H_B = lambda p : H(c*p + d)
   
   p = (1/(2**(a/c) + 1) - d) / c
   C_AB = H_B(p) - H_BA(p)
@@ -288,8 +288,8 @@ if part == "2":
   )
 
   q4_channel_capacity(
-    H_BA_coeff=(0.8, 0.1),
-    H_B_coeff=(0.5, 0.1)
+    H_BA_coeff=(0.7, 0.3),
+    H_B_coeff=(0.3, 0.1)
   )
 
 if part == "3":
@@ -308,8 +308,8 @@ if part == "3":
   )
 
   q9_pseudo_prime(
-    85,
-    [ 4,2,3,7,5 ]
+    121,
+    [ 2,11,4,3,5 ]
   )
 
   q9_strong_pseudo_prime(
@@ -318,7 +318,7 @@ if part == "3":
   )
 
 if part == "4":
-  m = [1,1,0,0,1]
+  m = [1,0,0,1,1]
   P = 2
 
   q10_simplify(
@@ -332,13 +332,12 @@ if part == "4":
   q10_generate(m, P)
 
   if True:
-  # if False:
     q10_solve(
       m,
       14,
-      (10, 9),
-      (6, 8),
-      (15, 2),
+      (8, 11),
+      (8, 2),
+      (10, 5),
       P=2
     )
 

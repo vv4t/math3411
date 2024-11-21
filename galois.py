@@ -1,5 +1,12 @@
 from number_theory import egcd
 
+def is_int(b):
+  try:
+    int(b)
+    return True
+  except:
+    return False
+
 class GF_P:
   def __init__(self, P, N):
     self.P = int(P)
@@ -17,31 +24,31 @@ class GF_P:
     return GF_P(self.P, x)
   
   def __mod__(a, b):
-    c = a.copy()
-    c.N = a.N % int(b)
-    c.normalize()
-    return c
+    return GF_P(self.P, a.N % int(b)) if is_int(b) else NotImplemented
   
-  def __radd__(B, A):
-    return B + A
+  def __neg__(self):
+    return GF_P(self.P, -self.N)
   
-  def __rmul__(B, A):
-    return B * A
+  def __radd__(b, a):
+    return b + a if is_int(a) else NotImplemented
+  
+  def __rmul__(b, a):
+    return b * a if is_int(a) else NotImplemented
   
   def __add__(a, b):
-    return GF_P(a.P, int(a) + int(b))
+    return GF_P(a.P, int(a) + int(b)) if is_int(b) else NotImplemented
   
   def __sub__(a, b):
-    return GF_P(a.P, int(a) - int(b))
+    return GF_P(a.P, int(a) - int(b)) if is_int(b) else NotImplemented
   
   def __mul__(a, b):
-    return GF_P(a.P, int(a) * int(b))
+    return GF_P(a.P, int(a) * int(b)) if is_int(b) else NotImplemented
   
   def __eq__(a, b):
-    return (int(a) - int(b)) % a.P == 0
+    return (int(a) - int(b)) % a.P == 0 if is_int(b) else NotImplemented
   
   def __truediv__(a, b):
-    return a * GF_P(a.P, int(b)).inverse()
+    return a * GF_P(a.P, int(b)).inverse() if is_int(b) else NotImplemented
   
   def __int__(self):
     return self.N

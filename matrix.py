@@ -68,6 +68,12 @@ class Matrix:
         return lead
     return 0
 
+  def basis(self):
+    H = self.reduced()
+    lead = [ H.lead(row) for row in range(H.height()) ]
+    free = [ col for col in range(H.width()) if col not in lead ]
+    print(lead, free)
+
   def reduced(self):
     H = self.copy()
     for i in range(1, self.height()):

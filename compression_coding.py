@@ -113,7 +113,10 @@ def huff(p, radix=2):
       pos = layer[pos]
     C.append(list(reversed(codeword)))
   
-  return (C, E, phase, placed_at)
+  for x, y in zip([-1] + placed_at, phase + [sum(p)]):
+    print("".join([ (f"[{b}]" if a == x else str(b)).ljust(8) for a,b in enumerate(y) ]))
+  
+  print("codeword:", C)
   
 def lz78_decode(m):
   m = [ (int(c[0]), c[1]) for c in m.split(",") ]
@@ -137,3 +140,41 @@ def lz78_encode(m):
     m = m[len(d[idx])+1:]
   
   return d, c
+
+def arithmetic_decode(T, m):
+  s = []
+  
+  u = 0.0
+  v = 1.0
+  
+  T = [ (T[i], T[i + 1]) for i in range(len(T) - 1)]
+  for X in range(4):
+    for itvl, idx in zip(T, range(len(T))):
+      a, b = itvl
+      x = u + a * (v - u)
+      y = u + b * (v - u)
+      if m >= x and m < y:
+        s_i = idx
+        u = x
+        v = y
+        break
+    if s_i is None:
+      print("error", s, u, v, m)
+    s.append(s_i)
+    if s_i == len(T) - 1:
+      break
+  
+  print("".join([ "s"+str(s_i+1) for s_i in s if s_i != len(T) - 1]) + "*")
+
+def arithmetic_encode(P, d, m):
+  D = {}
+  t = 0.0
+  for a, b in zip(d, P):
+    D[a] = (t, t + b)
+    t += b
+  s = 0.5
+  for c in m[::-1]:
+    x, y = D[c]
+    s = x + s * (y - x)
+  
+  print(s)

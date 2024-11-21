@@ -41,6 +41,12 @@ class Polynomial:
       r = r - d * t
     
     return (q, r)
+  
+  def evaluate(self, x):
+    s = self.coeff[0] * (x ** 0)
+    for term, coeff in enumerate(self.coeff[1:]):
+      s += coeff * (x ** (term + 1))
+    return s
 
   def __add__(a, b):
     if len(b.coeff) > len(a.coeff):
@@ -69,6 +75,9 @@ class Polynomial:
       c += b.shift_left(term) * coeff
     
     return c
+  
+  def __rmul__(b, a):
+    return b * a
   
   def __eq__(a, b):
     return (a - b).lead() == 0

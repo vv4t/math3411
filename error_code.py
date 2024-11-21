@@ -13,6 +13,7 @@ def find_check_and_info_bits(H):
   return check_bits, info_bits
 
 def linear_encode(H, m):
+  H = H.reduced()
   x = [0] * H.width()
   
   check_bits, info_bits = find_check_and_info_bits(H)
@@ -23,6 +24,13 @@ def linear_encode(H, m):
   Hx_T = (H * Matrix([x], H.field).transpose()).transpose()
   
   for pos, check in zip(check_bits, Hx_T.m[0]):
-    x[pos] = check
+    x[pos] = -check
   
   return x
+
+def packing_bound(len_C, n, t, r):
+  k = 0
+  for i in range(t + 1):
+    k += C(n, i) * ((r-1)**i)
+  
+  return k * len_C, r**n
