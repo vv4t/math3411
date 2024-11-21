@@ -1,4 +1,7 @@
-from lib import *
+import os
+os.chdir("..")
+from math3411 import *
+
 
 m1 = Polynomial([1,0,0,1,1], Z(2))
 m3 = Polynomial([1,1,1,1,1], Z(2))
