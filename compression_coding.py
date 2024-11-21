@@ -147,9 +147,9 @@ def huff(p, radix=2):
   for x, y in zip([-1] + placed_at, phase + [sum(p)]):
     print("".join([ (f"[{b}]" if a == x else str(b)).ljust(8) for a,b in enumerate(y) ]))
   
-  C = [ "".join(c) for c in C ]
+  C = [ "".join(map(str,c)) for c in C ]
   
-  print("C = {", C, "}")
+  print("C =", C)
   
   return C
   
