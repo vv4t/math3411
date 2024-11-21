@@ -4,7 +4,8 @@ m1 = Polynomial([1,0,0,1,1], Z(2))
 m3 = Polynomial([1,1,1,1,1], Z(2))
 m = m1 * m3
 
-message = [0,0,0,0,1,0,0]
+message = "0010111"
+message = [ int(s) for s in message ]
 
 C_I = Polynomial(list(reversed(message)) + [0] * 8, Z(2))
 C_R = C_I % m
@@ -18,7 +19,8 @@ for i in range(15):
   print(i, "->", a ** i % m1)
 print("----------------------------")
 
-d = [1,0,0,1,1,1,0,1,1,0,1,1,1,0,1]
+d = "100010011111000"
+d = [ int(s) for s in d ]
 
 D_x = Polynomial(list(reversed(d)), Z(2))
 
@@ -33,11 +35,11 @@ pairs = []
 
 for i in range(15):
   for j in range(i+1, 15):
-    if (a**i + a**j) % m1 == (a**13 % m1):
+    if (a**i + a**j) % m1 == (a**12 % m1):
       pairs.append((i, j))
 
 for x,y in pairs:
-  if (a**(3*x) + a**(3*y)) % m1 == (a**14 % m1):
+  if (a**(3*x) + a**(3*y)) % m1 == (a**11 % m1):
     print(x,y)
     break
 
