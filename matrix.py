@@ -72,7 +72,7 @@ class Matrix:
     return 0
 
   def basis(self):
-    H = self.reduced()
+    H = self.rref()
     lead = [ H.lead(row) for row in range(H.height()) ]
     free = [ col for col in range(H.width()) if col not in lead ]
     print(lead, free)

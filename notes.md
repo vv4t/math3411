@@ -72,3 +72,21 @@ Input: an integer n and base a
 - For r = 0,...,s-1:
   - If a^(2^r\*t) = -1 (mod n) return probbaly prime
 - Return No
+
+# Cryptography
+
+## Entropy and Cryptography
+
+Definitions
+- S alphabet with q letters
+- message M = S^n
+- |M| = |S^n| = q^n
+- m in M has |m| = n
+- F\_n set of meaningful messages of, assume, equal probability
+- H\_q(F\_n) = log\_q |F\_n|
+- information rate r\_n = H\_q(F\_n) / n
+- redundancy d\_n = 1 - r\_n
+
+Unicity Distance
+
+n\_0 = ceil(H\_q(K) / d)
