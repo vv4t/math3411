@@ -42,6 +42,8 @@ def strong_pseudo_prime(n, a):
     s += 1
     t //= 2
   
+  print(f"2^{s} * {t} + 1 = {n}")
+  
   if pow_mod(a, t, n) == 1:
     return True
   
