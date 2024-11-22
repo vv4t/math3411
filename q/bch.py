@@ -1,10 +1,10 @@
 from lib import *
 
-m1 = Polynomial([1,1,0,0,1], Z(2))
+m1 = Polynomial([1,0,0,1,1], Z(2))
 m3 = Polynomial([1,1,1,1,1], Z(2))
 m = m1 * m3
 
-message = "0010101"
+message = "1110001"
 message = [ int(s) for s in message ]
 
 C_I = Polynomial(list(reversed(message)) + [0] * 8, Z(2))
@@ -20,7 +20,7 @@ for i in range(16):
   print(i, "->", a ** i % m1)
 print("----------------------------")
 
-d = "001001110011000"
+d = "111110000000000"
 d = [ int(s) for s in d ]
 
 D_x = Polynomial(list(reversed(d)), Z(2))
