@@ -1,5 +1,4 @@
 from lib import *
-from itertools import combinations, product
 
 def q1_isbn():
     """
@@ -18,11 +17,12 @@ def q3_min_weight_parity_check():
     """
     given a parity check matrix, find the minimum weight
     """
-    r = 3
+    r = 2
     matrix = Matrix([
-        [2,1,1,1,2],
-        [0,2,1,0,1],
-        [2,1,1,0,1],
+        [1,0,1,0,1,1],
+        [1,0,0,0,0,0],
+        [1,1,1,0,0,1],
+        [1,1,1,0,1,0],
     ], field=Z(r))
     print(matrix)
     for w in range(1, matrix.width() + 1):
