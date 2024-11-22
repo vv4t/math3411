@@ -63,3 +63,20 @@ def fermat_factorise(n):
 
 def pow_mod(a, b, n):
   return builtins.pow(a, b, n)
+
+def cyclotomic_coset(s, p, k):
+  """
+  s - base
+  p - size
+  k - dimension
+  returns [ s, ps, p^2, s, p^3s, ... } mod p^k - 1
+  """
+  a = []
+  i = 0
+  while True:
+    c = (s * p**i) % (p**k - 1)
+    if c in a:
+      break
+    a.append(c)
+    i += 1
+  return sorted(a)
