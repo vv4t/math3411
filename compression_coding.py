@@ -165,7 +165,9 @@ def huff(p, radix=2, silent=False):
   
   C = [ "".join(map(str,c)) for c in C ]
   
-  if not silent: print("C =", C)
+  if not silent: 
+    print("L =", sum([ a*len(b) for a,b in zip(p, C) ]))
+    print("C =", C)
   
   return C
   
