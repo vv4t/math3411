@@ -1,16 +1,38 @@
 from lib import *
 
 """
-decode a message using multiple huffman codes from a markov thing
+decode/encode a message using multiple huffman codes from a markov thing
 """
 
-eq = ["01","00","1"]
+eq = ["00","1","01"]
 
 huff_i = [
-  ["00","1","01"],
-  ["0","10","11"],
-  ["0","10","11"]
+  ["10","0","11"],
+  ["1","00","01"],
+  ["00","1","01"]
 ]
+
+"""
+encode
+"""
+
+src = [1,2,3,2,1]
+
+encoded = []
+ptr = src[0] - 1
+encoded.append(eq[ptr])
+
+for s in src[1:]:
+  idx = s - 1
+  encoded.append(huff_i[ptr][idx])
+  ptr = idx
+
+print("".join(encoded))
+
+exit()
+"""
+decode
+"""
 
 src = "11010000"
 

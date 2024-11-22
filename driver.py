@@ -1,10 +1,11 @@
 from math3411 import *
 
-H = Matrix([
-  [1,1,1,2,1],
-  [2,1,1,0,2],
-  [2,2,1,0,0],
-  [0,0,1,0,1],
-], Z(3))
+a = Polynomial([1,0], Z(2))
+m = Polynomial([1,1,0,0,1], Z(2))
 
-print(H.rref())
+for i in range(15):
+  print(i, "=", a ** i % m)
+
+print("-------------------")
+
+print(m.evaluate(a))
