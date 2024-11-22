@@ -20,10 +20,9 @@ def q3_min_weight_parity_check():
     """
     r = 3
     matrix = Matrix([
-        [1,1,1,2,1],
-        [2,2,1,0,0],
-        [2,1,1,0,2],
-        [0,0,1,0,1]
+        [2,1,1,1,2],
+        [0,2,1,0,1],
+        [2,1,1,0,1],
     ], field=Z(r))
     print(matrix)
     for w in range(1, matrix.width() + 1):
@@ -35,7 +34,8 @@ def q3_min_weight_parity_check():
                 for i, index in enumerate(selection):
                     result += matrix.column(index) * coeff[i]
                 if result.is_zero():
-                    print(selection, coeff, w)
+                    print('cols:', selection)
+                    print('coeffs:', coeff)
                     print('min w:', w)
                     return
 
