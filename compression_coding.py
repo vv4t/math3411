@@ -93,7 +93,7 @@ def comma_code(n):
   return c
     
     
-def huff(p, radix=2):
+def huff(p, radix=2, silent=False):
   """
   generates a huffman c
   """
@@ -161,11 +161,11 @@ def huff(p, radix=2):
       ((f"[{b}]" if a == x else str(b) + "  ") + ("->" + str(c) if c >= 0 else "")).ljust(12)
       for a, b, c  in zip(range(len(y)), y, z)
     ]
-    print("".join(info))
+    if not silent: print("".join(info))
   
   C = [ "".join(map(str,c)) for c in C ]
   
-  print("C =", C)
+  if not silent: print("C =", C)
   
   return C
   

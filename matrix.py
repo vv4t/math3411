@@ -11,6 +11,20 @@ class Matrix:
   def height(self):
     return len(self.m)
   
+  def column(self, col):
+    col_values = []
+    for row in range(self.height()):
+      col_values.append([self.m[row][col]])
+    return Matrix(col_values, field=self.field)
+
+  def is_zero(self):
+    is_zero = True
+    for row in range(self.height()):
+      for col in range(self.width()):
+        if self.m[row][col] != 0:
+          is_zero = False
+    return is_zero
+
   def copy(self):
     r = []
     
@@ -44,9 +58,6 @@ class Matrix:
       B.append(v)
     
     return Matrix(B, self.field)
-  
-  def rref(self):
-    return self.row_echelon_form().reduced()
   
   def row_echelon_form(self):
     H = self.copy()
@@ -112,6 +123,19 @@ class Matrix:
           C.m[i][j] = C.m[i][j] * B
       return C
     
+  def __add__(A, B):
+    if (isinstance(B, Matrix) and 
+        A.width() == B.width() and
+        A.height() == B.height()):
+      R = []
+      for i in range(A.height()):
+        v = []
+        for j in range(A.width()):
+          v.append(A.m[i][j] + B.m[i][j])
+        R.append(v)
+      return Matrix(R, A.field)
+    else:
+      raise NotImplementedError('')
   
   def __repr__(self):
     return "\n".join(repr(row) for row in self.m)

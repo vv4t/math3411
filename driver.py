@@ -1,7 +1,4 @@
 from math3411 import *
+from statistics import mean
 
-print(
-round(
-entropy([5/11,4/11,1/11,1/11]),3
-)
-)
+print(entropy([0.4, 0.2, 0.2, 0.1, 0.1]))
