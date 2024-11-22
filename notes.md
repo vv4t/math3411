@@ -34,7 +34,7 @@ I(A,B) = H(A) + H(B) - H(A,B)
 phi(m) = |U\_m|
 
 - if p is prime, phi(p) = p - 1
-- if p is prime, phi(p^a) = p^a = p^{a - 1}
+- if p is prime, phi(p^a) = p^a - p^{a - 1}
 - if gcd(m,n) = 1, phi(mn) = phi(m)phi(n)
 
 ## Euler's Theorem
@@ -77,21 +77,6 @@ Input: an integer n and base a
 
 ## Entropy and Cryptography
 
-Definitions
-- S alphabet with q letters
-- message M = S^n
-- |M| = |S^n| = q^n
-- m in M has |m| = n
-- F\_n set of meaningful messages of, assume, equal probability
-- H\_q(F\_n) = log\_q |F\_n|
-- information rate r\_n = H\_q(F\_n) / n
-- redundancy d\_n = 1 - r\_n
-
 Unicity Distance
 
-n\_0 = ceil(H\_q(K) / d) = ceil(log\_2(|K|) / (log\_2(q) - R))
-
-- unicity distance measured in bits so H\_q => H\_2.
-- d = 1 - r = log\_2(q) - R
-- where R = r log\_2(q) rate of language in bits/character.
-- for english, q = 26 and R = 1.5
+n\_0 = ceil(log\_2(|K|) / (log\_2(q) - R))
