@@ -1,10 +1,10 @@
 from lib import *
 
-m1 = Polynomial([1,1,0,0,1], Z(2))
+m1 = Polynomial([1,0,0,1,1], Z(2))
 m3 = Polynomial([1,1,1,1,1], Z(2))
 m = m1 * m3
 
-message = "0010101"
+message = "0111001"
 message = [ int(s) for s in message ]
 
 C_I = Polynomial(list(reversed(message)) + [0] * 8, Z(2))
@@ -20,7 +20,7 @@ for i in range(16):
   print(i, "->", a ** i % m1)
 print("----------------------------")
 
-d = "001001110011000"
+d = "111110011001110"
 d = [ int(s) for s in d ]
 
 D_x = Polynomial(list(reversed(d)), Z(2))
@@ -30,9 +30,9 @@ D_x = Polynomial(list(reversed(d)), Z(2))
 D_a = D_x.evaluate(a) % m1
 D_a3 = D_x.evaluate(a ** 3) % m1
 
-print("D_a:", D_a)
-print("(D_a)^3:", (D_a ** 3) % m1)
-print("D_{a^3}:", D_a3)
+print("D(a):", D_a)
+print("D(a)^3:", (D_a ** 3) % m1)
+print("D(a^3):", D_a3)
 
 if D_a3 == Polynomial([0], Z(2)) and D_a == Polynomial([0], Z(2)):
   print('no error')
