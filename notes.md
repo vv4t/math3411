@@ -89,4 +89,9 @@ Definitions
 
 Unicity Distance
 
-n\_0 = ceil(H\_q(K) / d)
+n\_0 = ceil(H\_q(K) / d) = ceil(log\_2(|K|) / (log\_2(q) - R))
+
+- unicity distance measured in bits so H\_q => H\_2.
+- d = 1 - r = log\_2(q) - R
+- where R = r log\_2(q) rate of language in bits/character.
+- for english, q = 26 and R = 1.5

@@ -17,3 +17,6 @@ def I_c(text):
       d[c] = 0
     d[c] += 1
   return I_c_freq(list(d.values()), len(text))
+
+def unicity_distance(q, K, radix=2, R=1.5):
+  return log_r(K,radix) / (log_r(q,radix) - R)
