@@ -1,4 +1,4 @@
-from math3411 import *
+from lib import *
 
 # modelled off 2014 q3 iii
 
